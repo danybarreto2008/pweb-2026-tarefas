@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="inicio-container">
+    <div class="imagem-destaque" style="background: none; border: none;">
+        <img src="{% static 'blog/imagens/imagem_seleção.jpeg' %}" alt="Seleção Brasileira" style="width: 100%; height: 300px; object-fit: cover; border: 1px solid #000;">
+    </div>
+    
+    <div class="bem-vindo">
+        <h2>BEM-VINDO!</h2>
+        <p>Bem-vindo ao meu blog sobre a participação da Seleção Brasileira na Copa do Mundo de 2026. Neste site apresento um resumo dos dois primeiros jogos do Brasil na fase de grupos.</p>
+    </div>
+</div>
+{% endblock %}

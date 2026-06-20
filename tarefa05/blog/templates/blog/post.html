@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="post-detail-container">
+    <h2>{{ post.titulo }}</h2>
+    <p class="data">&#128197; {{ post.data_publicacao|date:"d \d\e F \d\e Y" }}</p>
+    
+    <div class="post-imagem">
+        {% if post.imagem %}
+            <img src="{{ post.imagem.url }}" alt="{{ post.titulo }}" style="max-width: 100%;">
+        {% endif %}
+    </div>
+    
+    <div class="post-texto">
+        <p>{{ post.texto|linebreaksbr }}</p>
+    </div>
+    
+    <a href="{% url 'jogos' %}" class="back-link">Voltar para os jogos</a>
+</div>
+{% endblock %}

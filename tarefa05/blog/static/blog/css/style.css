@@ -1,0 +1,209 @@
+/* Reset e fontes globais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+/* Layout principal para parecer com um documento em papel (como o rascunho) */
+body > .header, body > .content, body > .footer {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #000;
+    border-bottom: none;
+}
+body > .footer {
+    border-bottom: 1px solid #000;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.logo p {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.navbar {
+    margin-top: 20px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    text-transform: uppercase;
+    position: relative;
+}
+
+/* Adicionando um sublinhado como no rascunho */
+.navbar a::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+}
+
+/* Content */
+.content {
+    padding: 20px;
+}
+
+/* Página Início */
+.inicio-container .imagem-destaque {
+    border: 1px solid #000;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    background: #f0f0f0;
+    position: relative;
+}
+
+.placeholder-img {
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.placeholder-img::before, .placeholder-img::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 1px solid transparent;
+}
+/* O 'X' característico do rascunho de imagem */
+.imagem-destaque {
+    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px)),
+                      linear-gradient(to top right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px));
+}
+.imagem-destaque .placeholder-img {
+    background: rgba(255,255,255,0.8);
+    padding: 10px;
+}
+
+.bem-vindo h2 {
+    font-size: 20px;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+/* Página Jogos */
+.jogos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.jogo-card {
+    border: 1px solid #000;
+    padding: 15px;
+    position: relative;
+}
+
+.jogo-header h3 {
+    font-size: 18px;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.jogo-meta {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.jogo-body {
+    display: flex;
+    gap: 20px;
+}
+
+.jogo-imagem {
+    flex: 0 0 150px;
+    height: 150px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px)),
+                      linear-gradient(to top right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px));
+}
+
+.jogo-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-img-small {
+    background: rgba(255,255,255,0.8);
+    padding: 5px;
+    font-size: 12px;
+}
+
+.jogo-texto {
+    flex: 1;
+}
+
+.jogo-texto h4 {
+    font-size: 14px;
+    text-decoration: underline;
+    margin-bottom: 5px;
+}
+
+.conclusao {
+    border: 1px solid #000;
+    padding: 15px;
+}
+.conclusao h4 {
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 15px;
+}
+
+.footer p {
+    font-size: 14px;
+}

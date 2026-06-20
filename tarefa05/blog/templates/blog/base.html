@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog da Seleção</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+                <img src="{% static 'blog/imagens/taça.png' %}" alt="Taça" style="height: 80px;">
+                <div>
+                    <h1>BLOG DA SELEÇÃO BRASILEIRA</h1>
+                    <p>NA COPA DO MUNDO 2026</p>
+                </div>
+                <img src="{% static 'blog/imagens/escudo_cpf.png' %}" alt="Escudo" style="height: 80px;">
+            </div>
+        </div>
+        <nav class="navbar">
+            <a href="{% url 'inicio' %}">INÍCIO</a>
+            <a href="{% url 'jogos' %}">JOGOS</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 - Blog da Seleção Brasileira | Desenvolvido por Aluno</p>
+    </footer>
+</body>
+</html>

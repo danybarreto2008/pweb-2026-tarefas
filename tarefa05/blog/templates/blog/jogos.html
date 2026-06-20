@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="jogos-container">
+    {% for post in posts %}
+    <div class="jogo-card">
+        <div class="jogo-header">
+            <h3>{{ post.titulo }}</h3>
+            <!-- No rascunho tem o placar do jogo ao lado, mas como é um blog genérico, deixaremos o título da postagem, ou podemos adicionar manualmente ao título -->
+        </div>
+        
+        <div class="jogo-meta">
+            <span class="data">&#128197; {{ post.data_publicacao|date:"d \d\e F \d\e Y" }}</span>
+        </div>
+
+        <div class="jogo-body">
+            <div class="jogo-imagem">
+                {% if post.imagem %}
+                    <img src="{{ post.imagem.url }}" alt="{{ post.titulo }}">
+                {% else %}
+                    <div class="placeholder-img-small">IMAGEM</div>
+                {% endif %}
+            </div>
+            
+            <div class="jogo-texto">
+                <h4>RESUMO:</h4>
+                <p>{{ post.texto|linebreaksbr }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Nenhum jogo cadastrado ainda.</p>
+    {% endfor %}
+
+    <div class="conclusao">
+        <h4>CONCLUSÃO</h4>
+        <p>Após dois jogos, o Brasil mostrou evolução dentro da competição e segue na luta pela classificação para a próxima fase da Copa do Mundo.</p>
+    </div>
+</div>
+{% endblock %}
