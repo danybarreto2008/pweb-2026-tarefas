@@ -1,4 +1,38 @@
-/* Reset e fontes globais */
+/* ============================================
+   Blog da Seleção Brasileira — Dark Mode 🇧🇷
+   Paleta: Verde, Amarelo, Azul e Branco
+   ============================================ */
+
+/* Reset e Design System */
+:root {
+    /* Paleta Principal do Brasil */
+    --brasil-green: #009B3A;
+    --brasil-green-dark: #006B28;
+    --brasil-green-light: #00C853;
+    --brasil-yellow: #FEDF00;
+    --brasil-yellow-dark: #F5C800;
+    --brasil-yellow-glow: rgba(254, 223, 0, 0.3);
+    --brasil-blue: #002776;
+    --brasil-blue-dark: #001A4D;
+    --brasil-blue-light: #1565C0;
+    --brasil-white: #FFFFFF;
+
+    /* Tons neutros temáticos (Dark Mode) */
+    --bg-gradient-start: #001a1a;
+    --bg-gradient-end: #001122;
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --card-bg-hover: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(0, 155, 58, 0.15);
+    --text-primary: #f0f0f0;
+    --text-secondary: #b0c0c8;
+    --text-muted: #6a7a82;
+
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,126 +40,353 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    color: #333;
+    font-family: 'Outfit', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-primary);
     line-height: 1.6;
-    background-color: #f9f9f9;
+    background: linear-gradient(160deg, #001a1a 0%, #001122 40%, #0a1628 100%);
+    min-height: 100vh;
     padding: 20px;
+    overflow-x: hidden;
 }
 
-/* Layout principal para parecer com um documento em papel (como o rascunho) */
+/* ============================================
+   Animações @keyframes
+   ============================================ */
+
+/* Entrada suave com fade + slide para cima */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade genérico (manter compatibilidade) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Entrada pela esquerda */
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Entrada pela direita */
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(60px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Escala suave (zoom in) */
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* Brilho pulsante no texto */
+@keyframes textGlow {
+    0%, 100% { text-shadow: 0 0 10px var(--brasil-yellow-glow), 0 0 20px var(--brasil-yellow-glow); }
+    50%      { text-shadow: 0 0 20px var(--brasil-yellow), 0 0 40px var(--brasil-yellow-glow); }
+}
+
+/* Gradiente animado na borda */
+@keyframes borderGlow {
+    0%   { border-color: var(--brasil-green); box-shadow: 0 0 15px rgba(0,155,58,0.2); }
+    33%  { border-color: var(--brasil-yellow); box-shadow: 0 0 15px rgba(254,223,0,0.2); }
+    66%  { border-color: var(--brasil-blue-light); box-shadow: 0 0 15px rgba(21,101,192,0.2); }
+    100% { border-color: var(--brasil-green); box-shadow: 0 0 15px rgba(0,155,58,0.2); }
+}
+
+/* Shimmer / brilho deslizante */
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+/* Flutuação suave */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+
+/* Rotação + escala para ícones */
+@keyframes bounceIn {
+    0%   { transform: scale(0) rotate(-45deg); opacity: 0; }
+    60%  { transform: scale(1.1) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Linha decorativa crescendo */
+@keyframes growLine {
+    from { width: 0; }
+    to   { width: 80px; }
+}
+
+/* Pulso suave */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.05); }
+}
+
+/* ============================================
+   Layout Principal
+   ============================================ */
+
 body > .header, body > .content, body > .footer {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    background: #fff;
-    border: 1px solid #000;
-    border-bottom: none;
-}
-body > .footer {
-    border-bottom: 1px solid #000;
+    background: var(--glass-bg);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
+    margin-bottom: 20px;
+    animation: fadeInUp 0.6s ease-out forwards;
+    border: 1px solid var(--glass-border);
 }
 
-/* Header */
+/* ============================================
+   Header
+   ============================================ */
+
 .header {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 0;
+    border-bottom: none;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Borda inferior tricolor animada */
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+        var(--brasil-green) 0%,
+        var(--brasil-green) 33%,
+        var(--brasil-yellow) 33%,
+        var(--brasil-yellow) 66%,
+        var(--brasil-blue-light) 66%,
+        var(--brasil-blue-light) 100%
+    );
 }
 
 .header-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--brasil-green-dark) 0%, var(--brasil-green) 50%, #00833a 100%);
+    color: var(--brasil-white);
+    border-radius: 16px 16px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito de brilho deslizante no header */
+.header-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    right: -200%;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
+    background-size: 200% 100%;
+    animation: shimmer 5s ease-in-out infinite;
 }
 
 .logo h1 {
-    font-size: 24px;
-    font-weight: normal;
+    font-size: 30px;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    animation: fadeInUp 0.8s ease-out;
+    position: relative;
+    z-index: 1;
 }
 
 .logo p {
     font-size: 14px;
     text-transform: uppercase;
     margin-top: 5px;
+    color: var(--brasil-yellow);
+    font-weight: 700;
+    animation: textGlow 3s ease-in-out infinite;
+    letter-spacing: 3px;
+    position: relative;
+    z-index: 1;
 }
 
+/* Imagens do header (taça e escudo) */
+.logo img {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    transition: transform 0.4s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.1);
+    animation: float 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Navbar
+   ============================================ */
+
 .navbar {
-    margin-top: 20px;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
     display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
+    justify-content: center;
+    gap: 40px;
+    padding: 15px 0;
+    background: rgba(0, 10, 20, 0.5);
+    backdrop-filter: blur(8px);
 }
 
 .navbar a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-primary);
     text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
     position: relative;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Adicionando um sublinhado como no rascunho */
 .navbar a::after {
     content: '';
     display: block;
-    width: 100%;
-    height: 1px;
-    background-color: #000;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--brasil-green), var(--brasil-yellow));
     position: absolute;
-    bottom: -2px;
-    left: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 2px;
 }
 
-/* Content */
+.navbar a:hover {
+    color: var(--brasil-yellow);
+    background: rgba(254, 223, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* ============================================
+   Content
+   ============================================ */
+
 .content {
-    padding: 20px;
+    padding: 30px;
+    border-top: none;
+    border-bottom: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
 }
 
-/* Página Início */
+/* ============================================
+   Página Início
+   ============================================ */
+
 .inicio-container .imagem-destaque {
-    border: 1px solid #000;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 16px;
+    overflow: hidden;
     margin-bottom: 30px;
-    background: #f0f0f0;
+    box-shadow: 0 8px 30px rgba(0, 155, 58, 0.15);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: scaleIn 0.8s ease-out;
+    border: 2px solid var(--glass-border);
     position: relative;
 }
 
-.placeholder-img {
-    text-align: center;
-    font-size: 18px;
-    text-transform: uppercase;
-    color: #666;
-}
-
-.placeholder-img::before, .placeholder-img::after {
+/* Overlay gradiente sutil sobre a imagem */
+.inicio-container .imagem-destaque::after {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 1px solid transparent;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 20, 10, 0.6), transparent);
+    pointer-events: none;
+    border-radius: 0 0 16px 16px;
 }
-/* O 'X' característico do rascunho de imagem */
-.imagem-destaque {
-    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px)),
-                      linear-gradient(to top right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px));
+
+.inicio-container .imagem-destaque:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 155, 58, 0.25);
+    border-color: var(--brasil-green);
 }
-.imagem-destaque .placeholder-img {
-    background: rgba(255,255,255,0.8);
-    padding: 10px;
+
+.inicio-container .imagem-destaque img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.inicio-container .imagem-destaque:hover img {
+    transform: scale(1.05);
+}
+
+/* Seção Bem-Vindo */
+.bem-vindo {
+    text-align: center;
+    padding: 40px 30px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-left: 5px solid var(--brasil-green);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    animation: scaleIn 0.8s ease-out;
 }
 
 .bem-vindo h2 {
-    font-size: 20px;
-    font-weight: normal;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--brasil-yellow);
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
 }
 
-/* Página Jogos */
+/* Linha decorativa animada embaixo do título */
+.bem-vindo h2::after {
+    content: '';
+    display: block;
+    margin: 12px auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--brasil-green), var(--brasil-yellow), var(--brasil-blue-light));
+    border-radius: 2px;
+    animation: growLine 1s ease-out forwards;
+}
+
+.bem-vindo p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* ============================================
+   Página Jogos
+   ============================================ */
+
 .jogos-container {
     display: flex;
     flex-direction: column;
@@ -133,49 +394,109 @@ body > .footer {
 }
 
 .jogo-card {
-    border: 1px solid #000;
-    padding: 15px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
     position: relative;
+    overflow: hidden;
+}
+
+/* Barra lateral verde-amarela decorativa */
+.jogo-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--brasil-green), var(--brasil-yellow));
+    border-radius: 4px 0 0 4px;
+    transition: width 0.3s ease;
+}
+
+/* Delay gradual para as cartas */
+.jogo-card:nth-child(1) { animation-delay: 0.1s; }
+.jogo-card:nth-child(2) { animation-delay: 0.3s; }
+.jogo-card:nth-child(3) { animation-delay: 0.5s; }
+.jogo-card:nth-child(4) { animation-delay: 0.7s; }
+
+.jogo-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    border-color: var(--brasil-green);
+    box-shadow:
+        0 20px 40px rgba(0, 155, 58, 0.15),
+        0 0 30px rgba(0, 155, 58, 0.05);
+    background: var(--card-bg-hover);
+}
+
+.jogo-card:hover::before {
+    width: 6px;
 }
 
 .jogo-header h3 {
-    font-size: 18px;
-    font-weight: normal;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--brasil-yellow);
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1px;
+}
+
+.jogo-header h3::before {
+    content: '⚽';
+    font-size: 1.2rem;
+    animation: bounceIn 0.6s ease-out;
 }
 
 .jogo-meta {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 14px;
+    color: var(--text-secondary);
+    display: inline-block;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
 }
 
 .jogo-body {
     display: flex;
-    gap: 20px;
+    gap: 25px;
 }
 
 .jogo-imagem {
-    flex: 0 0 150px;
+    flex: 0 0 200px;
     height: 150px;
-    border: 1px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px)),
-                      linear-gradient(to top right, transparent calc(50% - 1px), #999, transparent calc(50% + 1px));
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s ease;
 }
 
 .jogo-imagem img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
-.placeholder-img-small {
-    background: rgba(255,255,255,0.8);
-    padding: 5px;
-    font-size: 12px;
+.jogo-card:hover .jogo-imagem {
+    box-shadow: 0 8px 25px rgba(0, 155, 58, 0.2);
+    border-color: var(--brasil-green);
+}
+
+.jogo-card:hover .jogo-imagem img {
+    transform: scale(1.1);
 }
 
 .jogo-texto {
@@ -183,27 +504,334 @@ body > .footer {
 }
 
 .jogo-texto h4 {
-    font-size: 14px;
-    text-decoration: underline;
-    margin-bottom: 5px;
+    font-size: 16px;
+    color: var(--brasil-green-light);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
+
+.jogo-texto p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Placeholder para imagem ausente */
+.placeholder-img-small {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--brasil-blue-dark), var(--brasil-blue));
+    color: var(--brasil-yellow);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+/* ============================================
+   Seção Conclusão
+   ============================================ */
 
 .conclusao {
-    border: 1px solid #000;
-    padding: 15px;
-}
-.conclusao h4 {
-    font-weight: normal;
-    text-transform: uppercase;
-    margin-bottom: 5px;
+    background: linear-gradient(135deg, var(--brasil-blue-dark) 0%, var(--brasil-blue) 50%, var(--brasil-blue-light) 100%);
+    color: var(--brasil-white);
+    border-radius: 16px;
+    padding: 40px 35px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 39, 118, 0.3);
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
 }
 
-/* Footer */
-.footer {
+/* Estrelas decorativas (5 estrelas do Brasil) */
+.conclusao::before {
+    content: '★ ★ ★ ★ ★';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--brasil-yellow);
+    font-size: 12px;
+    letter-spacing: 8px;
+    opacity: 0.7;
+    animation: textGlow 3s ease-in-out infinite;
+}
+
+/* Brilho deslizante na conclusão */
+.conclusao::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    right: -200%;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%);
+    background-size: 200% 100%;
+    animation: shimmer 6s ease-in-out infinite;
+}
+
+.conclusao h4 {
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--brasil-yellow);
+    margin-bottom: 15px;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+.conclusao p {
+    position: relative;
+    z-index: 1;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+/* ============================================
+   Detalhe do Post
+   ============================================ */
+
+.post-detail-container {
+    padding: 20px;
+}
+
+.post-detail-container h2 {
+    color: var(--brasil-yellow);
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.post-detail-container .data {
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.post-imagem {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+    border: 1px solid var(--glass-border);
+    animation: scaleIn 0.7s ease-out;
+    transition: all 0.4s ease;
+}
+
+.post-imagem:hover {
+    box-shadow: 0 12px 40px rgba(0, 155, 58, 0.2);
+    border-color: var(--brasil-green);
+}
+
+.post-imagem img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.post-imagem:hover img {
+    transform: scale(1.03);
+}
+
+.post-texto {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+/* ============================================
+   Back Link — Botão com Shimmer
+   ============================================ */
+
+.back-link {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--brasil-green), var(--brasil-green-dark));
+    color: white;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0,155,58,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.back-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.back-link:hover {
+    background: linear-gradient(135deg, var(--brasil-green-light), var(--brasil-green));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,155,58,0.4);
+}
+
+.back-link:hover::after {
+    left: 100%;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+body > .footer {
     text-align: center;
-    padding: 15px;
+    padding: 25px;
+    background: linear-gradient(135deg, var(--brasil-blue-dark), var(--brasil-blue));
+    color: var(--brasil-white);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Borda superior tricolor */
+body > .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+        var(--brasil-green) 0%,
+        var(--brasil-green) 33%,
+        var(--brasil-yellow) 33%,
+        var(--brasil-yellow) 66%,
+        var(--brasil-blue-light) 66%,
+        var(--brasil-blue-light) 100%
+    );
 }
 
 .footer p {
     font-size: 14px;
+    opacity: 0.9;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   Scrollbar Personalizada
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a1628;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--brasil-green), var(--brasil-blue));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--brasil-green-light), var(--brasil-blue-light));
+}
+
+/* ============================================
+   Seleção de Texto Temática
+   ============================================ */
+
+::selection {
+    background: var(--brasil-yellow);
+    color: var(--brasil-blue-dark);
+}
+
+::-moz-selection {
+    background: var(--brasil-yellow);
+    color: var(--brasil-blue-dark);
+}
+
+/* ============================================
+   Media Queries para Responsividade
+   ============================================ */
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .jogo-body {
+        flex-direction: column;
+    }
+
+    .jogo-imagem {
+        flex: 1 1 auto;
+        height: 200px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 15px;
+    }
+
+    .logo h1 {
+        font-size: 22px;
+        letter-spacing: 1px;
+    }
+
+    .logo p {
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    .navbar {
+        gap: 20px;
+    }
+
+    .navbar a {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .content {
+        padding: 20px 15px;
+    }
+
+    .bem-vindo {
+        padding: 25px 20px;
+    }
+
+    .bem-vindo h2 {
+        font-size: 20px;
+    }
+
+    .conclusao {
+        padding: 30px 20px 25px;
+    }
+
+    .post-detail-container h2 {
+        font-size: 24px;
+    }
 }
